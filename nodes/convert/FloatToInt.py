@@ -1,27 +1,27 @@
-from ... import Yvann
 import numpy as np
 
-class ConvertNodeBase(Yvann):
-    CATEGORY = "👁️ Yvann Nodes/🔄 Convert"
+from ..base import ConvertNodeBase
+
 
 class FloatToInt(ConvertNodeBase):
     @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "float": ("FLOAT", {"forceInput": True}),
+                "floats": ("FLOATS", {
+                    "forceInput": True,
+                    "tooltip": "List of floats to round to nearest integers"
+                }),
             }
         }
-    RETURN_TYPES = ("INT",)
-    RETURN_NAMES = ("int",)
+
+    RETURN_TYPES = ("INTS",)
+    RETURN_NAMES = ("ints",)
     FUNCTION = "convert_floats_to_ints"
 
-    def convert_floats_to_ints(self, float):
-
-        floats_array = np.array(float)
-
+    def convert_floats_to_ints(self, floats):
+        floats_array = np.array(floats)
         ints_array = np.round(floats_array)
-
         ints_array = ints_array.astype(int)
         integers = ints_array.tolist()
 
